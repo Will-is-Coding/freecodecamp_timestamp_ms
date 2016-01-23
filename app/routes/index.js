@@ -20,8 +20,8 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/index.html');
 		});
 
-	app.get('/:test', function (req, res) {
-		res.send("test nun: " + req.params.test);
+	app.get('/t/:test', function (req, res) {
+		res.send("test num: " + req.params.test);
 	});
 
 	app.route('/login')
