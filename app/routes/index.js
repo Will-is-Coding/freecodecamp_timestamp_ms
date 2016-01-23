@@ -22,6 +22,7 @@ module.exports = function (app, passport) {
 		
 	app.route('/123')
 		.get( function (req, res) {
+			res.sendFile(path + '/public/profile.html');
 			res.send('Huzzah!');
 		});
 
