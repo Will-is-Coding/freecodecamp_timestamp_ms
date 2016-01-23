@@ -19,12 +19,10 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, function (req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
-		
-	app.route('/123')
-		.get( function (req, res) {
-			res.sendFile(path + '/public/profile.html');
-			res.send('Huzzah!');
-		});
+
+	app.get('/:test', function (req, res) {
+		res.send("test nun: " + req.params.test);
+	});
 
 	app.route('/login')
 		.get(function (req, res) {
