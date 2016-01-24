@@ -25,11 +25,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/t', function (req, res) {
-	res.send("test num: ");
-	console.log('here');
-});
-
 routes(app, passport);
 
 var port = process.env.PORT || 8080;
