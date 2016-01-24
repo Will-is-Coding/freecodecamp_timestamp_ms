@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var moment = require('moment');
 
 module.exports = function (app, passport) {
 
@@ -16,16 +17,27 @@ module.exports = function (app, passport) {
 	var clickHandler = new ClickHandler();
 
 	app.route('/')
-		.get(isLoggedIn, function (req, res) {
+		.get( function (req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
 		
-	app.route('/t/:test')
+	app.route('/:thetime')
 		.get( function(req, res) {
-			res.send('test: ' + req.params.test);
+			var time = { "unix": null, "natural": null };
+			var toConvert = req.params.thetime;
+			
+			if( isNaN(toConvert) && moment(toConvert, "MMMM DD, YYYY").isValid() ) {
+				time.natural = toConvert;
+				time.unix = moment(toConvert).unix();
+			}
+			else if( moment.unix(Number(toConvert)).isValid() ) {
+				time.unix = Number(toConvert);
+				time.natural = moment.unix(time.unix).format("MMMM DD, YYYY");
+			}
+			res.send(time);
 		});
 
-	app.route('/login')
+	/*app.route('/login')
 		.get(function (req, res) {
 			res.sendFile(path + '/public/login.html');
 		});
@@ -58,5 +70,5 @@ module.exports = function (app, passport) {
 	app.route('/api/:id/clicks')
 		.get(isLoggedIn, clickHandler.getClicks)
 		.post(isLoggedIn, clickHandler.addClick)
-		.delete(isLoggedIn, clickHandler.resetClicks);
+		.delete(isLoggedIn, clickHandler.resetClicks);*/
 };
