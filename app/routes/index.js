@@ -1,7 +1,7 @@
 'use strict';
 
 var path = process.cwd();
-var time = require('../../node_modules/will-is-coding/time.js')
+var time = require('../will-is-coding/time.js')
 
 module.exports = function (app, passport) {
 
